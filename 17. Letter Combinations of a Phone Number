@@ -1,0 +1,37 @@
+class Solution:
+    cache = {}
+    result = []
+
+    def letterCombinations(self, digits) :
+        self.cache['2'] = ['a', 'b', 'c']
+        self.cache['3'] = ['d', 'e', 'f']
+        self.cache['4'] = ['g', 'h', 'i']
+        self.cache['5'] = ['j', 'k', 'l']
+        self.cache['6'] = ['m', 'n', 'o']
+        self.cache['7'] = ['p', 'q', 'r', 's']
+        self.cache['8'] = ['t', 'u', 'v']
+        self.cache['9'] = ['w', 'x', 'y', 'z']
+
+        self.getComb(digits, 0, "")
+        return self.result
+
+    def getComb(self, st, index, path):
+        if index > len(st):
+            return
+
+        if index == len(st):
+            self.result.append(path)
+            return
+
+        if st[index] in self.cache:
+            s = self.cache[st[index]]
+            original = str(path)
+            for i in range(len(s)):
+                original = path + s[i]
+                self.getComb(st, index + 1, original)
+
+
+
+s = Solution()
+digits = '23'
+print s.letterCombinations(digits)
